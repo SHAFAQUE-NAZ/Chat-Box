@@ -1,0 +1,15 @@
+import socket
+
+client = socket.socket()
+domain = ('127.0.0.10', 5000)
+client.connect(domain)
+while True:
+    client.send(input("Client: ").encode())
+    msg = client.recv(1024).decode()
+    if msg.strip().lower()=='bye bye':
+        print("Thanks")
+        client.send(b"Thanks")
+        break
+    print(msg)
+
+client.close()

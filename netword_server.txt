@@ -1,0 +1,19 @@
+import socket
+
+server = socket.socket()
+domain = ('127.0.0.10', 5000)
+server.bind(domain)
+server.listen(1)
+print("Waiting for client...")
+client, address = server.accept()
+print(address)
+
+while True:
+    message = client.recv(1024)
+    if message.decode().strip().lower()=='thanks':
+        print("Thank you")
+        break
+    print("Client:", message.decode())
+    client.send(input("Server: ").encode())
+
+server.close()
